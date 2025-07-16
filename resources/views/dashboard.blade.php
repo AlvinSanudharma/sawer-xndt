@@ -12,6 +12,30 @@
                     {{ __("You're logged in!") }}
                 </div>
             </div>
+
+            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mt-6 p-6">
+                <label for="profile-url" class="block text-sm font-medium text-gray-700">Profile URL</label>
+                <div class="flex mt-1" x-data="{
+                    copyProfileUrl(e) {
+                        const profileUrl = $refs.profileUrl
+                
+                        profileUrl.select()
+                        profileUrl.setSelectionRange(0, 99999)
+                
+                        document.execCommand('copy');
+                        alert('Copied to clipboard!');
+                    }
+                }">
+                    <input type="text" name="profile-url" x-ref="profileUrl" id="profile-url"
+                        value="{{ url('user/' . Auth::user()->username) }}"
+                        class="form-input block w-full rounded-md shadow-sm border-gray-300 focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50"
+                        readonly>
+                    <button @click="copyProfileUrl"
+                        class="ml-2 px-4 py-2 bg-indigo-600 text-white text-sm font-medium rounded-md hover:bg-indigo-700 focus:outline-none focus:ring focus:ring-indigo-500 focus:ring-opacity-50">
+                        Copy
+                    </button>
+                </div>
+            </div>
         </div>
     </div>
 </x-app-layout>
