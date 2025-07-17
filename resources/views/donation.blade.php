@@ -22,15 +22,7 @@
             <form action="{{ route('donations.store') }}" method="POST" class="w-full max-w-2xl">
                 @csrf
                 <input type="hidden" name="user_id" value="{{ $user->id }}">
-                @if ($errors->any())
-                    <div class="my-4">
-                        <ul>
-                            @foreach ($errors->all() as $error)
-                                <li class="text-red-900">{{ $error }}</li>
-                            @endforeach
-                        </ul>
-                    </div>
-                @endif
+
                 <div class="space-y-12">
                     <div class="border-b border-gray-900/10 pb-12">
                         <div class="flex justify-between items-center gap-x-6">
@@ -50,36 +42,48 @@
                             <div class="sm:col-span-full">
                                 <label for="name" class="block text-sm/6 font-medium text-gray-900">Nama</label>
                                 <div class="mt-2">
-                                    <input type="text" name="name" id="name" required
+                                    <input type="text" name="name" id="name"
                                         class="w-full rounded-md bg-white px-4 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
                                         value="{{ auth()->check() ? auth()->user()->name : old('name') }}"
-                                        @if (auth()->check()) readonly @endif>
+                                        placeholder="Nama anda" @if (auth()->check()) readonly @endif>
                                 </div>
+                                @error('name')
+                                    <div class="mt-1 text-red-500">{{ $message }}</div>
+                                @enderror
                             </div>
                             <div class="sm:col-span-full">
                                 <label for="email" class="block text-sm/6 font-medium text-gray-900">Email</label>
                                 <div class="mt-2">
-                                    <input type="email" name="email" id="email" required
+                                    <input type="email" name="email" id="email"
                                         class="w-full rounded-md bg-white px-4 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
                                         value="{{ auth()->check() ? auth()->user()->email : old('email') }}"
-                                        @if (auth()->check()) readonly @endif>
+                                        placeholder="Email anda" @if (auth()->check()) readonly @endif>
                                 </div>
+                                @error('email')
+                                    <div class="mt-1 text-red-500">{{ $message }}</div>
+                                @enderror
                             </div>
                             <div class="sm:col-span-full">
                                 <label for="amount" class="block text-sm/6 font-medium text-gray-900">Nominal</label>
                                 <div class="mt-2">
-                                    <input type="number" name="amount" id="amount" required
+                                    <input type="number" name="amount" id="amount"
                                         class="w-full rounded-md bg-white px-4 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
                                         placeholder="Nominal donasi">
                                 </div>
+                                @error('amount')
+                                    <div class="mt-1 text-red-500">{{ $message }}</div>
+                                @enderror
                             </div>
                             <div class="sm:col-span-full">
                                 <label for="message" class="block text-sm/6 font-medium text-gray-900">Pesan</label>
                                 <div class="mt-2">
-                                    <textarea name="message" id="message" required
+                                    <textarea name="message" id="message"
                                         class="w-full rounded-md bg-white px-4 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
                                         placeholder="Pesan dukungan"></textarea>
                                 </div>
+                                @error('message')
+                                    <div class="mt-1 text-red-500">{{ $message }}</div>
+                                @enderror
                             </div>
                         </div>
                     </div>
