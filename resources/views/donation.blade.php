@@ -19,9 +19,18 @@
 <body class="font-sans antialiased">
     <div class="bg-gray-100">
         <div class="flex justify-center items-center h-screen w-full">
-            <form action="" method="POST" class="w-full max-w-2xl">
+            <form action="{{ route('donations.store') }}" method="POST" class="w-full max-w-2xl">
                 @csrf
                 <input type="hidden" name="user_id" value="{{ $user->id }}">
+                @if ($errors->any())
+                    <div class="my-4">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li class="text-red-900">{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
                 <div class="space-y-12">
                     <div class="border-b border-gray-900/10 pb-12">
                         <div class="flex justify-between items-center gap-x-6">

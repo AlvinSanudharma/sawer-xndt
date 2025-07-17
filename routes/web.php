@@ -8,7 +8,13 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/user/{username}', [DonationController::class, 'index'])->name('donation.index');
+Route::get('/user/{username}', [DonationController::class, 'index'])->name('donations.index');
+
+Route::post('/donate', [DonationController::class, 'store'])->name('donations.store');
+
+Route::get('/donation/success', function() {
+    return 'Success donate';
+})->name('donations.success');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
